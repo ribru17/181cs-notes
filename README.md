@@ -2,23 +2,23 @@
 
 <!-- vim: set spell: -->
 
-## Lecture 1
+<!-- Lecture 1 -->
 
-### Course Subjects
+## Course Subjects
 
 - Data: Representations of objects
 - Algorithms: Operations on data
 
-### Different Forms of Data
+## Different Forms of Data
 
-#### Roman Numerals vs. Decimal
+### Roman Numerals vs. Decimal
 
 To show the distance to the moon, Roman numerals would require a small book
 while decimal requires only seven digits.
 
-### Algorithms
+## Algorithms
 
-#### Multiplication
+### Multiplication
 
 - First elementary algorithm for this is repeated addition (add the first number
   to itself the second number times).
@@ -29,7 +29,7 @@ When multiplying two 20 digit numbers, repeated addition takes $10^{20}$
 operations while grade school addition takes only 400. Nowadays we have
 discovered that multiplication can be done in $O(n\cdot \log n)$ time.
 
-### Representing Objects
+## Representing Objects
 
 We need a way to represent objects such as:
 
@@ -57,9 +57,9 @@ such that $\forall x \in \Theta: D(E(x)) = x$.
 
 Encoding is only valid if it is one-to-one, i.e. each input has a unique output.
 
-## Lecture 2
+<!-- Lecture 2 -->
 
-### Encodings
+## Encodings
 
 - Prefix-free encodings
   - $E: \Theta \longrightarrow \langle 0, 1 \rangle^{\ast}$ is a prefix-free
@@ -92,7 +92,7 @@ Encoding is only valid if it is one-to-one, i.e. each input has a unique output.
 - **Proof (Cantor 1876):** There is no one-to-one mapping from $\mathbb{R}
   \text{ to } \langle 0,1 \rangle^{\ast}$.
 
-### Algorithms
+## Algorithms
 
 - **Algorithms:** Gave a procedure for solving quadratic equations
   - From Al-Khwarizmi (9th century)
