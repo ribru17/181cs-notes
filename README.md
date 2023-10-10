@@ -99,3 +99,38 @@ Encoding is only valid if it is one-to-one, i.e. each input has a unique output.
   - Informally: A series of simple steps to solve some problem.
 - Steps are defined as basic operations, i.e. boolean circuits
   - `AND`, `OR`, `NOT`
+  <!-- Lecture 3 -->
+- $A(n, m, s)$ is a boolean circuit that is a DAG with $n + s$ vertices.
+  - $n$ is the number of variables, $m$ is the number of output variables, and
+    $s$ is the size of the circuit.
+  - Exactly $n$ of these vertices are labeled as `x[0]`, `x[1]`, ... `x[n-1]`.
+  - The other $s$ vertices are gates (`AND`, `OR`, `NOT`).
+    - `AND` and `OR` have two inputs while `NOT` has one
+  - $m$ of the gates are labeled as outputs `y[0]`, `y[1]`, ... `y[m-1]`.
+  - $m \le n + s$
+- `NAND` Circuits
+  - $(n, m, s)\text{NAND}$ circuit is a DAG where there are:
+    - $n$ inputs `x[0]`, `x[1]`, `x[2]`, ... `x[n-1]`
+    - $s$ gates each having exactly two inputs (computing `NAND`)
+    - $m$ vertices labeled `y[0]`, `y[1]`, ... `y[m-1]`
+  - Given a `NAND` circuit $C$, we can define a function $C: \langle 0, 1
+    \rangle^{n} \longrightarrow \langle 0, 1 \rangle^{m}$ that $C$ computes.
+    - A `NAND` circuit $C$ computes a function $f$ if $f(x) = C(x) \forall x$.
+  - If we have a `NAND` gate computing a function $f$, we can also get a boolean
+    circuit for it.
+    - We can compute `NOT` with `NAND` gates (`NAND` $a$ with itself)
+    - We can also compute `AND` (use regular `NAND` and then a `NOT` using the
+      above method)
+    - We can compute `OR` because $\text{OR}(a, b) = \text{NAND}(\lnot a, \lnot
+      b)$
+  - **Theorem:** Boolean circuits are equivalent to `NAND` in computing power.
+    - `AND` and `OR` is not enough to create any complete circuit.
+  - **Theorem:** Every function $f: \langle 0, 1 \rangle^{n} \longrightarrow
+    \langle 0, 1 \rangle^{m}$ can be computed by a boolean circuit of size
+    $O(n\cdot m\cdot 2^{n})$.
+    - **Remark:** Addition $\text{ADD}(x, y): \langle 0, 1 \rangle^{n} \times
+      \langle 0, 1 \rangle^{n} \longrightarrow \langle 0, 1 \rangle^{n+1} = x +
+      y$ can be computed by a boolean circuit of size $O(n)$. Multiplication
+      $\text{MULT}(x, y): \langle 0, 1 \rangle^{n} \times \langle 0, 1
+      \rangle^{n} \longrightarrow \langle 0, 1 \rangle^{2n} = x \cdot y$ can be
+      computed by a circuit of size $O(n^{2})$.
