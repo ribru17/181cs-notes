@@ -134,3 +134,65 @@ Encoding is only valid if it is one-to-one, i.e. each input has a unique output.
       $\text{MULT}(x, y): \langle 0, 1 \rangle^{n} \times \langle 0, 1
       \rangle^{n} \longrightarrow \langle 0, 1 \rangle^{2n} = x \cdot y$ can be
       computed by a circuit of size $O(n^{2})$.
+
+<!-- Lecture 4 -->
+
+## Functions
+
+- **Theorem:** Every function $f: \langle 0, 1 \rangle^{n} \longrightarrow
+  \langle 0, 1 \rangle^{m}$ can be computed by a boolean circuit of size $O(m
+  \cdot n \cdot 2^{n})$.
+  - Example when $m = 1$:
+    - $f: \langle 0, 1 \rangle^{n} \longrightarrow \langle 0, 1 \rangle$
+    - We can make a table with entries of every possible input of bits and their
+      output:
+
+      | Input Strings | Output   |
+      | ------------- | -------- |
+      | 0 0 ... 0     | 0        |
+      | 0 0 ... 1     | 1        |
+      | $\vdots$      | $\vdots$ |
+
+      The table has $2^{n}$ rows of size $n$, plus one extra bit in the rows for
+      their output.
+- We can have a set $S$ as all possible inputs where our above function $f$
+  evaluates to one, $S(f) = \langle \alpha \in \langle 0, 1 \rangle^{n}:
+  f(\alpha) = 1 \rangle$.
+- **Definition:** For a string $\alpha \in \langle 0, 1 \rangle^{n}$ define
+  $E_\alpha: \langle 0, 1 \rangle^{n} \longrightarrow \langle 0, 1 \rangle$.
+  $E_\alpha(x) = \begin{cases} 1 & x = \alpha \\ 0 & x \neq \alpha \end{cases}$
+  - This is a very trivial function that is essentially a "spike", only one when
+    the input is exactly alpha and zero everywhere else.
+    - E.g. when $\alpha = (1, 1, \ldots, 1), E_{\alpha}(x) = \text{AND}(x[0],
+      x[1], \ldots, x[n-1])$
+- Observation of $S(f)$: $f(x) = 1 \iff x \in S(f)$. Thus $f(x) =
+  \text{OR}(E_{\alpha^{0}}(x), E_{\alpha^{1}}(x), \ldots, E_{\alpha^{n-1}}(x))$.
+- If we construct a circuit to compute the above function, the circuit computes
+  $f$ using at most $(2n-1)2^{n}$ gates.
+- **Theorem (Shannon, 1949):** Some functions require $\frac{2^{n}}{24n}$ gates
+  to compute!
+- _Remark:_ The "upper bound" can be improved: every function can be computed
+  with $O(\frac{2^{n}}{n})$ gates.
+- We can also encode circuits themselves as $\langle 0, 1 \rangle^{\ast}$
+  strings. This will allow for "universal circuits", i.e. circuits that can be
+  passed as inputs into other circuits.
+- **Theorem:** Every $(n, m, s)$ - `NAND` circuit can be represented by a
+  boolean string of length $O((n+s) \cdot \log_2(n + s))$.
+  - $\text{CIRCUIT}(n,m,s)$ = All circuits of $n$ inputs, $m$ outputs, and $s$
+    gates.
+- To encode a circuit, we must know:
+  - How many inputs $n$
+  - How many outputs $m$
+  - How many gates $\le s$
+  - Which nodes correspond to the output variables
+  - What are the incoming wires (inputs) for each gate
+- We first number each input, and then afterwards we number each gate (starting
+  with the indices after the $n$ inputs, so first gate will be numbered $n$ with
+  0-based indexing).
+- We organize the data as $(n, m, s_0, \_, \_, \ldots, \_)$ where each
+  underscore is the index of a node that is an output (thus there are $m$
+  underscores).
+  - We still need a way to specify the connections (map inputs to gates /
+    outputs)!
+- After the $m$ indices, we store tuples of the indices of the nodes into gate
+  1, gate 2, etc. There will be $s_0$ such tuples (same as number of gates).
