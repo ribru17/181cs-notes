@@ -142,7 +142,9 @@ Encoding is only valid if it is one-to-one, i.e. each input has a unique output.
 - **Theorem:** Every function $f: \langle 0, 1 \rangle^{n} \longrightarrow
   \langle 0, 1 \rangle^{m}$ can be computed by a boolean circuit of size $O(m
   \cdot n \cdot 2^{n})$.
+
   - Example when $m = 1$:
+
     - $f: \langle 0, 1 \rangle^{n} \longrightarrow \langle 0, 1 \rangle$
     - We can make a table with entries of every possible input of bits and their
       output:
@@ -155,6 +157,7 @@ Encoding is only valid if it is one-to-one, i.e. each input has a unique output.
 
       The table has $2^{n}$ rows of size $n$, plus one extra bit in the rows for
       their output.
+
 - We can have a set $S$ as all possible inputs where our above function $f$
   evaluates to one, $S(f) = \langle \alpha \in \langle 0, 1 \rangle^{n}:
   f(\alpha) = 1 \rangle$.
@@ -196,3 +199,9 @@ Encoding is only valid if it is one-to-one, i.e. each input has a unique output.
     outputs)!
 - After the $m$ indices, we store tuples of the indices of the nodes into gate
   1, gate 2, etc. There will be $s_0$ such tuples (same as number of gates).
+- **Theorem:** There is an encoding $E: \text{CIRCUIT}(n, m, s) \longrightarrow
+  \langle 0, 1 \rangle^{\ast}$ such that the length of the encoding $\le
+  12(n+s)\log_2(n+s)$. <!-- Lecture 5 -->
+- **Theorem:** There exists a function $f: \langle 0, 1 \rangle^{n}
+  \longrightarrow \langle 0, 1 \rangle$ that has no `NAND-CIRCUIT` of size $\le
+  c \cdot \frac{2^{n}}{n}$ (for some fixed constant $c > 0$).
