@@ -205,3 +205,55 @@ Encoding is only valid if it is one-to-one, i.e. each input has a unique output.
 - **Theorem:** There exists a function $f: \langle 0, 1 \rangle^{n}
   \longrightarrow \langle 0, 1 \rangle$ that has no `NAND-CIRCUIT` of size $\le
   c \cdot \frac{2^{n}}{n}$ (for some fixed constant $c > 0$).
+
+<!-- Lecture 6 -->
+
+### Functions of Unbounded Input Length
+
+An algorithm is a **finite** answer to an **infinite** number of questions.
+
+A function $f: \langle 0, 1 \rangle^{\ast} \longrightarrow \langle 0, 1
+\rangle^{\ast}$ has unbounded input length. (We can also consider functions of
+the form $f: \langle 0, 1 \rangle^{\ast} \longrightarrow \langle 0, 1 \rangle$)
+
+We can take an example from an `XOR` function which returns `1` when the sum of
+the inputs is odd and `0` if even. It is a single-pass algorithm since it only
+passes over the data once. It also has constant additional memory (only stores
+the current sum).
+
+- **GOAL:** Build a model for single-pass, constant memory algorithms.
+  - We do this with finite state machines.
+  - Using the previous example we have:
+
+    ```mermaid
+    flowchart LR
+
+    A(Output = 0) -->|1| B(Output = 1)
+    B -->|1| A
+    B -->|0| B
+    A -->|0| A
+    ```
+
+- **Deterministic Finite Automata (`DFA`):** `DFA` with $C$ sates over $\langle
+  0, 1\rangle$ is a pair $D = (T,S)$ where $T: [C] x \langle 0, 1 \rangle
+  \longrightarrow [C]$ and $S \le [C]$
+  - $T(i, a) = j$: "If in state $i$, read bit $a$ -> jump to state $j$."
+- $D: \langle 0, 1 \rangle^{\ast} \longrightarrow \langle 0, 1 \rangle$. On
+  input $x$:
+  - Start from state $s_0 = 0$
+  - For $i = 0, \ldots, len(x) - 1$: $s_{i+1} = T(s_{i}, x[i])$
+  - Output `1` if final state is in $S$, `0` otherwise.
+- We say a `DFA` $D = (T, S)$ computes a function $f: \langle 0, 1
+  \rangle^{\ast} \longrightarrow \langle 0, 1 \rangle$ if $f(x) = D(x) \forall x
+  \in \langle 0, 1 \rangle^{\ast}$
+- Can we compute operations on functions computed by `DFA` (e.g. `NOT`)?
+  - If $f$ is computable by `DFA`, so is $\text{NOT}f$. To get $\text{NOT}f$ we
+    simply flip the states.
+  - However, `AND`ing two `DFA` functions are not computable by `DFA`, because
+    it becomes not single-pass.
+    - Here we must make a new `DFA` that computes the `AND` of the two. We
+      compute the two functions in parallel when passing over the data. If the
+      first function had $C_1$ states and the second $C_2$, the new function
+      will have $C = C_1 \cdot C_2$ states.
+    - With `OR`, the amount of states are the same, and the transition function
+      remains the same.
