@@ -63,8 +63,8 @@ Encoding is only valid if it is one-to-one, i.e. each input has a unique output.
 
 - Prefix-free encodings
   - $E: \Theta \longrightarrow \langle 0, 1 \rangle^{\ast}$ is a prefix-free
-    encoding for all $x \neq y \in \Theta \Theta, E(x) \text{is not a prefix of}
-    E(y)$
+    encoding for all $x \neq y \in \Theta \Theta, E(x)$ is not a prefix of
+    $E(y)$
   - E.g. An encoding where data is continually parsed until some delimiter at
     the end that marks the data as complete
 - **Theorem:** Suppose we have a prefix-free encoding $pE: \Theta
@@ -249,7 +249,7 @@ the current sum).
 - Can we compute operations on functions computed by `DFA` (e.g. `NOT`)?
   - If $f$ is computable by `DFA`, so is $\text{NOT}f$. To get $\text{NOT}f$ we
     simply flip the states.
-  - However, `AND`ing two `DFA` functions are not computable by `DFA`, because
+  - However, `ANDing` two `DFA` functions are not computable by `DFA`, because
     it becomes not single-pass.
     - Here we must make a new `DFA` that computes the `AND` of the two. We
       compute the two functions in parallel when passing over the data. If the
