@@ -284,3 +284,53 @@ the current sum).
 - A function $f: \langle 0, 1 \rangle^{\ast} \longrightarrow \langle 0, 1
   \rangle^{\ast}$ is computed by a Turing machine $M$ if $\exists M: f(x) =
   M(x), \forall x$
+
+<!-- Lecture 13 -->
+
+## Universality
+
+- **Theorem:**
+  - For every Python program $P$, $\exists$ a Turing machine $M: \forall x, P(x)
+    = M(x)$.
+  - If $P$ takes $T$ steps, then $M$ takes $T^{2}$ steps.
+- **Church-Turing Thesis:** Every function that is computable by physical means
+  is also computable by a Turing machine.
+- **`HOCAEIT`** Principle
+  - "Have our cake and eat it too"
+  - `HOC`: To show something is computable by a Turing machine we can use a
+    high-level programming language
+    - A function $f: \langle 0, 1 \rangle^{\ast} \longrightarrow \langle 0, 1
+      \rangle^{\ast}$ is computable if $\exists$ a Turing machine $M: f(x) =
+      M(x), \forall x$.
+  - `EIT`: To show something is uncomputable, we just have to show that Turing
+    machines cannot do it.
+- **Theorem (Universality):** There is a single Turing machine that can simulate
+  all Turing machines.
+  - An example: a compiler which takes programs as plain text.
+- **Theorem (Uncomputability):** There are functions that are uncomputable!
+- **Goal:** $U_{TM}$ (Turing machine)
+  - $U_{TM}(M, x) = M(x)$ where the first input $M$ is also a binary string
+    encoding of a Turing machine
+  - For a Turing machine $M$, $\delta: [k] \times \Sigma \longrightarrow [k]
+    \times \Sigma \times \langle L, R, S, H \rangle$
+    - Number of states is $k$
+    - Number of alphabet symbols is $l$. $\Sigma = \langle a_0, a_1, \ldots,
+      a_{l-1} \rangle$
+    - We only need five numbers to encode a transition function. I.e., for
+      $\delta(i, a) = (j, b, A)$, we just need $i, a, j, b, A$, we just need $i,
+      a, j, b, A$.
+    - For a complete Turing machine, we have, e.g.: $(k, l, (0, 0, 10, 11, 3),
+      (\ldots),\ldots)$ where $k$ and $l$ are the number of states and symbols,
+      respectively. There are $k\cdot l$ such 5-tuples.
+      - This encoding is just a list of integers, of length $2 + 5 \cdot k \cdot
+        l$. The integers are of size $max(k, l)$.
+      - The length of this encoding is $O(k \cdot l (\log k + \log l))$
+        - We have $O(k \cdot l)$ integers, each of $O(\log k + \log l)$ bits
+  - **NOTE:** For a Turing machine $M$, $\langle M \rangle$ denotes the binary
+    representation of $M$.
+- Consider $\text{EVAL}: \langle 0, 1 \rangle^{\ast} \longrightarrow \langle 0,
+  1\rangle^{\ast} \cup \langle \perp \rangle$. $\text{EVAL}(\langle M \rangle,
+  i) = M(x)$
+  - $\text{EVAL}$ is computable! $\exists$ a Turing machine $U$ such that
+    $U(\langle M \rangle, x) = \text{EVAL}(M, x) \forall \text{inputs}$.
+    - Example: we can make a Python program that simulates a Turing machine
