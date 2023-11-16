@@ -9,16 +9,16 @@
 - Data: Representations of objects
 - Algorithms: Operations on data
 
-## Different Forms of Data
+### Different Forms of Data
 
-### Roman Numerals vs. Decimal
+#### Roman Numerals vs. Decimal
 
 To show the distance to the moon, Roman numerals would require a small book
 while decimal requires only seven digits.
 
-## Algorithms
+### Algorithms
 
-### Multiplication
+#### Multiplication
 
 - First elementary algorithm for this is repeated addition (add the first number
   to itself the second number times).
@@ -29,7 +29,7 @@ When multiplying two 20 digit numbers, repeated addition takes $10^{20}$
 operations while grade school addition takes only 400. Nowadays we have
 discovered that multiplication can be done in $O(n\cdot \log n)$ time.
 
-## Representing Objects
+### Representing Objects
 
 We need a way to represent objects such as:
 
@@ -222,6 +222,7 @@ passes over the data once. It also has constant additional memory (only stores
 the current sum).
 
 - **GOAL:** Build a model for single-pass, constant memory algorithms.
+
   - We do this with finite state machines.
   - Using the previous example we have:
 
@@ -257,3 +258,29 @@ the current sum).
       will have $C = C_1 \cdot C_2$ states.
     - With `OR`, the amount of states are the same, and the transition function
       remains the same.
+
+<!-- Lecture 12 -->
+
+## Turing Machines
+
+- Defined as a `DFA` with read/write memory and a two-way head
+- Contains:
+  - $k$ states
+  - $\Sigma \supseteq \langle 0, 1, \triangleright, \emptyset \rangle$
+    - Here $\triangleright$ is the start of the tape, and $\emptyset$ denotes an
+      empty cell
+  - Transition function $\delta: \langle 0, 1, \ldots, k-1 \rangle \times \Sigma
+    \longrightarrow \langle 0, 1, \ldots, k-1 \rangle \times \Sigma \times
+    \langle L, R, S, H \rangle$
+    - NOTE: The last set stands for `Left`, `Right`, `Stay`, `Halt`
+    - $\delta(state_{i}, a) = (state_{j}, b, \text{"Move head a certain way"})$
+- On a Turing machine $M$ with input $x$:
+  - If $M$ halts on $x$, then $M(x) = \text{Tape}[0] \text{Tape}[1] \ldots
+    \text{Tape}[\text{Head}]$
+  - if $M$ does not halt: $M(x) = \perp$ ($M$ failed, did not terminate)
+  - $M: \langle 0, 1 \rangle^{\ast} \longrightarrow \Sigma^{\ast} \cup \langle
+    \perp \rangle$
+    - $M(x) = \text{The tape contents until the head is halted}$
+- A function $f: \langle 0, 1 \rangle^{\ast} \longrightarrow \langle 0, 1
+  \rangle^{\ast}$ is computed by a Turing machine $M$ if $\exists M: f(x) =
+  M(x), \forall x$
