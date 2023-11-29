@@ -334,3 +334,34 @@ the current sum).
   - $\text{EVAL}$ is computable! $\exists$ a Turing machine $U$ such that
     $U(\langle M \rangle, x) = \text{EVAL}(M, x) \forall \text{inputs}$.
     - Example: we can make a Python program that simulates a Turing machine
+
+<!-- Lecture 14 -->
+
+## Uncomputability and Reductions
+
+- There are functions that cannot be computed by a Turing machine.
+  - Example: "Toddler" function: $\text{TODD}(\langle M \rangle)$ which outputs
+    `1` if $M$ halts on $\langle M \rangle$ with 0 as output, and `0` if it does
+    not halt _or_ it halts but has output $\neq 0$.
+  - **Theorem:** $\text{TODD}$ is _uncomputable_.
+    - Proof by contradiction: if we have $N$ which is a Turing machine that
+      computes $\text{TODD}$, what is $N(\langle N \rangle)$
+      ($\text{TODD}(\langle N \rangle)$)?
+      - If $N(\langle N \rangle) = 0, \Rightarrow \text{TODD}(\langle N \rangle)
+        = 1$
+      - If $N(\langle N \rangle) = 1, \Rightarrow \text{TODD}(\langle N \rangle)
+        = 0$
+      - Contradiction! Thus this is not possible.
+  - **Also uncomputable:** $\text{HALT}: \langle 0, 1 \rangle^{\ast}
+    \longrightarrow \langle 0, 1 \rangle$
+    - $\text{HALT}(\langle M \rangle, x)$ is `1` if $M$ halts on $x$ and `0`
+      otherwise
+
+### Reductions
+
+- Reduction from Problem A to Problem B
+  - Equivalent to: "If I can solve Problem B, then I can solve problem A" or "If
+    B is computable, then A is computable".
+  - **Utility:** $\forall x \in A: A(x) = B(R(x))$
+    - We map inputs from A to B
+  - **Theorem/Remark:** If $f$ is uncomputable, then so is $\text{NOT}f$
